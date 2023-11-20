@@ -1,5 +1,14 @@
 const inquirer = require('inquirer');
+const mysql = require('mysql2');
 
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  database: 'employee',
+})
+
+function init(){
 inquirer.prompt([
   {
     type: 'list',
@@ -75,4 +84,27 @@ inquirer.prompt([
     name: 'choices',
     message: 'What would you like to do?',
   },
-])
+])}
+
+function viewEmployees(){
+// todo
+}
+
+function viewDepartments() {
+  // todo
+}
+function viewRoles() {
+  // todo
+}
+function addEmployees() {
+  // todo
+}
+function addDepartment() {
+  // todo
+}
+function addRole() {
+  // todo
+}
+function updateEmployees() {
+  // todo
+}
