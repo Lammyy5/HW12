@@ -66,8 +66,41 @@ function viewRoles() {
   })
 }
 function addEmployees() {
-//  todo
-  }
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        message: 'What is the name of the employee?',
+        name: 'firstname',
+      },
+      {
+        type: 'input',
+        message: 'What is the salary of the employee?',
+        name: 'salary',
+      },
+      {
+        type: 'input',
+        message: 'What is the department id of the employee?',
+        name: 'departmentid',
+      },
+      {
+        type: 'input',
+        message: 'What is the manager id of the employee?',
+        name: 'managerid',
+      },
+    ])
+    .then((data) => {
+      db.query(
+        `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES(?,?,?,?)`,
+        [data.firstname, data.salary, data.departmentid, data.managerid],
+        (err, res) => {
+          if (err) throw err
+          console.log('New employee added successfully!')
+          init()
+        }
+      )
+    })
+}
 
 function addDepartment() {
   // todo
