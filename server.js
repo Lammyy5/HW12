@@ -47,7 +47,7 @@ function init() {
                     case "Add a department":
                     addDepartment();
                     break;
-  }});
+  }})};
 
 function viewEmployees() {
   db.query('SELECT * FROM employee', (err, data) => {
@@ -103,11 +103,50 @@ function addEmployees() {
 }
 
 function addDepartment() {
-  // todo
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        message: 'Whats the new department name?',
+        name: 'Newdepartment',
+      },
+    ])
+    .then((data) => {
+      db.query(
+        `INSERT INTO department (name) VALUES(?)`,
+        [data.Newdepartment],
+        (err, res) => {
+          if (err) throw err
+          console.log('Department added successfully!')
+          init()
+        }
+      )
+    })
 }
 function addRole() {
- 
-}
+ inquirer.prompt([
+        {
+            type: "input",
+            message: "What is the name of the role?", 
+             name: "Newrole"
+        },
+        {
+            type: "input",
+            message: "What is the salary of the role",
+            name: "salary"
+        },
+        {
+            type: "input",
+            message: "What is the department id of this role",
+            name: "departmentid"
+        }
+    ]).then((data) => {
+        db.query(`INSERT INTO role (title, salary, department_id) VALUES(?,?,?)`, [data.Newrole, data.salary, data.departmentid], (err, res) => {
+            if (err) throw err
+            console.log("New role added successfully!")
+            init()
+        })
+    })
 function updateEmployees() {
   inquirer.prompt([
     {
